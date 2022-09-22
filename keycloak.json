@@ -1,0 +1,8 @@
+{
+  "realm": "iauro-chronicle",
+  "auth-server-url": "https://auth.gessa.io",
+  "ssl-required": "external",
+  "resource": "masterClient",
+  "public-client": true,
+  "confidential-port": 0
+}

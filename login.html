@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <!-- <link rel="stylesheet" href="assests/css/styles.css"> -->
+        <script src="https://auth.gessa.io/js/keycloak.js"></script>
+        <script>
+           var keycloak = new Keycloak();
+
+        function initKeycloak() {
+            keycloak.init({onLoad: 'login-required'}).then(function() {
+                parseTokenAndSet(keycloak.idTokenParsed);
+            }).catch(function() {
+                alert('keycloak failed to authenticate');
+            });
+        }
+
+        function parseTokenAndSet(keycloakToken) {
+        
+            // setCookie("io_preferred_username", keycloakToken.preferred_username, 30);
+            // setCookie("io_given_name", keycloakToken.given_name, 30);
+            // setCookie("io_family_name", keycloakToken.family_name, 30);
+            // setCookie("io_name", keycloakToken.name, 30);
+            // setCookie("io_email", keycloakToken.email, 30);
+            setCookie("io_accessToken", keycloak.token, 30);
+            setCookie("io_refreshToken", keycloak.refreshToken, 30);
+            setCookie("io_login_object", JSON.stringify(keycloakToken), 30);
+            
+            window.location.replace(window.location.origin);
+        }
+        function setCookie(cname,cvalue,exdays) {
+            const d = new Date();
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+            let expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+        </script>
+    </head>
+    <body onload="initKeycloak()">
+              
+    </body>
+</html>
